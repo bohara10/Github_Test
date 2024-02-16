@@ -71,6 +71,36 @@ void Insertdataatlast(){
   }
 }
 
+void enteratmiddle() {
+    node *newnode = new node(getdata());
+    cout << "Enter the position to enter the data: ";
+    int position;
+    cin >> position;
+    if (position < 1) {
+        cout << "Invalid position!" << endl;
+        delete newnode; // Cleanup to avoid memory leak
+        return;
+    }
+    node *temp = head;
+    if (position == 1) {
+        newnode->next = head;
+        head = newnode;
+    } else {
+        for (int i = 1; i < position - 1; ++i) { // Corrected loop to stop at the node before the desired position
+            if (temp == nullptr || temp->next == nullptr) {
+                cout << "The position does not exist" << endl;
+                delete newnode; // Cleanup to avoid memory leak
+                return;
+            }
+            temp = temp->next;
+        }
+        // Insert the new node after temp
+        newnode->next = temp->next;
+        temp->next = newnode;
+    }
+}
+
+
 void deletefromtop(){
   node *del;
   if(head==nullptr){
@@ -98,6 +128,33 @@ void deletefromend(){
   }
 }
 
+void positiondel(){
+  cout<<"Enter the position that you want to delete : "<<endl;
+  int postion;
+  cin>>postion;
+  node *temp=head;
+  if(postion<1){
+    cout<<"Cannot delete the data"<<endl;
+    return;
+  }else if(postion==1){
+    deletefromtop();
+  }else{
+    for(int i=1;i<(postion-1);++i){
+      if(temp->next==nullptr){
+        cout<<"Cannot delete the data";
+        return;
+      }else{
+        temp=temp->next;
+      }
+    }
+      node *todel=temp->next;
+      temp->next=temp->next->next;
+      cout<<todel->data<<" was deleted"<<endl;
+      delete todel;
+  
+  }
+}
+
 void display(){
   if(head==nullptr){
     cout<<"no data to display"<<endl;
@@ -120,7 +177,10 @@ int main(){
   l.Insertdatafrombegining();
   l.Insertdataatlast();
   l.Insertdataatlast();
-  l.deletefromend();
+  l.display();
+  l.enteratmiddle();
+  l.display();
+  l.positiondel();
   l.display();
   return 0;
 }
