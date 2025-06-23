@@ -80,7 +80,7 @@ class datain{
     }}
 
   void seescaned(){
-    cout<<"The Scanned characters are :"<<endl;
+    cout<<"The postfix of the expresssion is :"<<endl;
     for(int i=0;i<=count;++i){
       cout<<scan[i];
     }cout<<endl;
