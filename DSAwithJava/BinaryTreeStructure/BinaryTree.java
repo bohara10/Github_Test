@@ -1,7 +1,6 @@
 package BinaryTreeStructure;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -77,6 +76,25 @@ public class BinaryTree {
             }
         }
         return list;
+    }
+
+    public BinaryNode sortedListToBST(LinkedList<Integer> head) {
+        if (head == null) return null;
+        return buildBST(head, null);
+    }
+
+    private BinaryNode buildBST(LinkedList<Integer> head, LinkedList<Integer>tail) {
+        if (head == tail) return null;
+        LinkedList<Integer> slow = head;
+        LinkedList<Integer> fast = head;
+        while (fast != tail && fast.next != tail) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        BinaryNode root = new BinaryNode(slow.val);
+        root.left = buildBST(head, slow);
+        root.right = buildBST(slow.next, tail);
+        return root;
     }
 }
 

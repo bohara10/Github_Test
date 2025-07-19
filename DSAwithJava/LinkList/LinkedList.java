@@ -2,7 +2,7 @@ package LinkList;
 
 public class LinkedList<T>implements List<T>{
 
-    private ListNode<T> head;
+    public ListNode<T> head;
     public int count;
 
     public LinkedList(){
